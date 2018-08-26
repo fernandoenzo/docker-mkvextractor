@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -x  # All executed commands are printed to the terminal
+
+gpg --keyserver keyserver.ubuntu.com --recv-keys ABA52FB3CB96275F
+gpg -a -o /tmp/mkv-extractor.gpg --export ABA52FB3CB96275F
+apt-key add /tmp/mkv-extractor.gpg
+
+aptitude update ; aptitude install -y ca-certificates
+aptitude update ; aptitude install -y ffmpeg mkv-extractor-qt5 qtesseract5
+
+apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.aptitude
